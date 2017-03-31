@@ -56,6 +56,7 @@ if (process.env.NODE_ENV !== "production") {
     schema: PropTypes.object.isRequired,
     uiSchema: PropTypes.object.isRequired,
     idSchema: PropTypes.object,
+    schemaPath: PropTypes.array,
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func.isRequired,
     formData: PropTypes.oneOfType([

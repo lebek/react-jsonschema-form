@@ -285,6 +285,7 @@ class ArrayField extends Component {
       formData,
       errorSchema,
       idSchema,
+      schemaPath,
       name,
       required,
       disabled,
@@ -306,12 +307,14 @@ class ArrayField extends Component {
         const itemErrorSchema = errorSchema ? errorSchema[index] : undefined;
         const itemIdPrefix = idSchema.$id + "_" + index;
         const itemIdSchema = toIdSchema(itemsSchema, itemIdPrefix, definitions);
+        const itemSchemaPath = schemaPath ? [...schemaPath, index] : [index];
         return this.renderArrayFieldItem({
           index,
           canMoveUp: index > 0,
           canMoveDown: index < formData.length - 1,
           itemSchema: itemsSchema,
           itemIdSchema,
+          itemSchemaPath,
           itemErrorSchema,
           itemData: formData[index],
           itemUiSchema: uiSchema.items,
@@ -413,6 +416,7 @@ class ArrayField extends Component {
       uiSchema,
       errorSchema,
       idSchema,
+      schemaPath,
       name,
       required,
       disabled,
@@ -450,6 +454,7 @@ class ArrayField extends Component {
         const itemSchema = additional ? additionalSchema : itemSchemas[index];
         const itemIdPrefix = idSchema.$id + "_" + index;
         const itemIdSchema = toIdSchema(itemSchema, itemIdPrefix, definitions);
+        const itemSchemaPath = schemaPath ? [...schemaPath, index] : [index];
         const itemUiSchema = additional
           ? uiSchema.additionalItems || {}
           : Array.isArray(uiSchema.items)
@@ -466,6 +471,7 @@ class ArrayField extends Component {
           itemData: item,
           itemUiSchema,
           itemIdSchema,
+          itemSchemaPath,
           itemErrorSchema,
           autofocus: autofocus && index === 0,
           onBlur,
@@ -494,6 +500,7 @@ class ArrayField extends Component {
       itemData,
       itemUiSchema,
       itemIdSchema,
+      itemSchemaPath,
       itemErrorSchema,
       autofocus,
       onBlur,
@@ -520,6 +527,7 @@ class ArrayField extends Component {
           formData={itemData}
           errorSchema={itemErrorSchema}
           idSchema={itemIdSchema}
+          schemaPath={itemSchemaPath}
           required={this.isItemRequired(itemSchema)}
           onChange={this.onChangeForIndex(index)}
           onBlur={onBlur}
@@ -571,6 +579,7 @@ if (process.env.NODE_ENV !== "production") {
       }),
     }),
     idSchema: PropTypes.object,
+    schemaPath: PropTypes.array,
     errorSchema: PropTypes.object,
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func,

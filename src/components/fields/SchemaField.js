@@ -130,7 +130,15 @@ DefaultTemplate.defaultProps = {
 };
 
 function SchemaFieldRender(props) {
-  const { uiSchema, errorSchema, idSchema, name, required, registry } = props;
+  const {
+    uiSchema,
+    errorSchema,
+    idSchema,
+    schemaPath,
+    name,
+    required,
+    registry,
+  } = props;
   const {
     definitions,
     fields,
@@ -220,6 +228,7 @@ function SchemaFieldRender(props) {
     fields,
     schema,
     uiSchema,
+    schemaPath,
   };
 
   return <FieldTemplate {...fieldProps}>{field}</FieldTemplate>;
@@ -255,6 +264,7 @@ if (process.env.NODE_ENV !== "production") {
     schema: PropTypes.object.isRequired,
     uiSchema: PropTypes.object,
     idSchema: PropTypes.object,
+    schemaPath: PropTypes.array,
     formData: PropTypes.any,
     errorSchema: PropTypes.object,
     registry: PropTypes.shape({

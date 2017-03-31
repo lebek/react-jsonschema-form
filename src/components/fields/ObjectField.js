@@ -46,6 +46,7 @@ class ObjectField extends Component {
     const { definitions, fields, formContext } = this.props.registry;
     const { SchemaField, TitleField, DescriptionField } = fields;
     const schema = retrieveSchema(this.props.schema, definitions);
+    const schemaPath = this.props.schemaPath || [];
     const title = schema.title === undefined ? name : schema.title;
     let orderedProperties;
     try {
@@ -85,6 +86,7 @@ class ObjectField extends Component {
               required={this.isRequired(name)}
               schema={schema.properties[name]}
               uiSchema={uiSchema[name]}
+              schemaPath={[...schemaPath, name]}
               errorSchema={errorSchema[name]}
               idSchema={idSchema[name]}
               formData={formData[name]}
@@ -107,6 +109,7 @@ if (process.env.NODE_ENV !== "production") {
     uiSchema: PropTypes.object,
     errorSchema: PropTypes.object,
     idSchema: PropTypes.object,
+    schemaPath: PropTypes.array,
     onChange: PropTypes.func.isRequired,
     formData: PropTypes.object,
     required: PropTypes.bool,
